@@ -1,6 +1,6 @@
 import { AppBar, Toolbar } from '@mui/material'
-import CartTriggerButton from '../../features/Cart/cart-trigger-button'
-import Navbar from './navbar';
+import {CartTriggerButton} from '@widgets/Cart'
+import {Navbar} from '@widgets/Navbar/ui/Navbar';
 
 
 const Header = () => {

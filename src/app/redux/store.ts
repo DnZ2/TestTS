@@ -1,20 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit'
-import cartSlice from './cart-slice'
-import {api} from './api'
+import cartSlice from '../../entities/cart/api/cartSlice'
+import { baseApi } from '@shared/api' 
 import { persistStore, persistReducer, FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
  
 const cartPersistConfig = {
     key: 'cart',
     storage,
-    whitelist: ['items']
 }
 
 const cartReducer = persistReducer(cartPersistConfig, cartSlice)
 
 export const store = configureStore({
   reducer: {
-    [api.reducerPath]: api.reducer,
+    [baseApi.reducerPath]: baseApi.reducer,
     cart: cartReducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -22,7 +21,7 @@ export const store = configureStore({
       serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-  }).concat(api.middleware),
+  }).concat(baseApi.middleware),
 })
 export const persistor = persistStore(store)
 
